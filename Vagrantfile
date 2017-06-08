@@ -57,6 +57,8 @@ date > /etc/vagrant_provisioned_at
 SCRIPT
 
 $kubemaster = <<SCRIPT
+sudo sed 's/127\.0\.0\.1.*cluster.*/192\.168\.33\.10 cluster/' -i /etc/hosts
+
 kubeadm init --apiserver-advertise-address 192.168.33.10 --pod-network-cidr 10.244.0.0/16 --token 8c2350.f55343444a6ffc46
 
 sudo cp /etc/kubernetes/admin.conf $HOME/
@@ -75,10 +77,12 @@ kubectl proxy --address=192.168.33.10 --accept-hosts='^localhost$,^192\.168\.33\
 SCRIPT
 
 $kubeagent1 = <<SCRIPT
+sudo sed 's/127\.0\.0\.1.*node1.*/192\.168\.33\.20 node1/' -i /etc/hosts
 kubeadm join --token=8c2350.f55343444a6ffc46 192.168.33.10:6443
 SCRIPT
 
 $kubeagent2 = <<SCRIPT
+sudo sed 's/127\.0\.0\.1.*node2.*/192\.168\.33\.30 node2/' -i /etc/hosts
 kubeadm join --token=8c2350.f55343444a6ffc46 192.168.33.10:6443
 SCRIPT
 
