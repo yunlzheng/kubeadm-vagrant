@@ -73,7 +73,6 @@ kubectl apply -f kube-flannel.yml
 
 curl -O https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/kubernetes-dashboard.yaml
 
-kubectl proxy --address=192.168.33.10 --accept-hosts='^localhost$,^192\.168\.33\.10$,^\[::1\]$'
 SCRIPT
 
 $kubeagent1 = <<SCRIPT
